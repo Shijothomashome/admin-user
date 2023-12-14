@@ -1,0 +1,21 @@
+<%- include('./partials/header.ejs') -%>
+
+    <!-- User signup form -->
+    <section class="form-section">
+        <div class="form-container">
+            <form action="/api/user/signup" method="post" enctype="multipart/form-data">
+                <h2>Signup</h2>
+                <input type="text" id="fullname" name="fullName" placeholder="Enter your fullname">
+                <input type="text" id="email" name="email" placeholder="Enter your email">
+                <input type="tel" id="phone" name="phoneNumber" placeholder="Enter your phone number">
+                <input type="text" id="password" name="password" placeholder="Enter your password">
+                <input type="text" id="rePassword" name="reEnterPassword" placeholder="Re-enter your password">
+                <label for="userImage">Choose Profile Picture</label>
+                <input type="file" name="userImage" accept="image/*" title="choose your profile image">
+                <p>Existing user? <a href="/api/user/login">Login</a></p>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </section>
+
+<%- include('./partials/footer.ejs') -%>

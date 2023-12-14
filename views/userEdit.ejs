@@ -1,0 +1,76 @@
+<%- include("./partials/adminHeader.ejs", {title: 'Edit user' , admin}) -%>
+    <!-- Editform fromm admin panel -->
+    <!-- User edit form -->
+    <section class="form-section">
+        <div class="form-container">
+            <form id="editProfile">
+                <h2>Edit Profile of <%= user.fullName %>
+                </h2>
+                <div class="change-dp"><img id="profile_img" src="/uploads/<%= user.imageFileName %>" alt=""> <i
+                        class="fa-solid fa-camera" title="change picture" onclick="triggerFileInput()"></i><input
+                        type="file" id="userImage" name="userImage" accept="image/*" title="choose your profile image"
+                        style="display: none;">
+                </div>
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" name="fullName" value="<%= user.fullName %>">
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email" value="<%= user.email %>">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phoneNumber" value="<%= user.phoneNumber %>">
+                <label for="password">Password</label>
+                <input type="text" id="password" name="password" value="<%= user.password %>">
+                <label for="rePassword">Re-enter Password</label>
+                <input type="text" id="rePassword" name="reEnterPassword" value="<%= user.reEnterPassword %>">
+                <button type="button" onclick="updateUser('<%= user._id %>')">Update</button>
+            </form>
+        </div>
+    </section>
+    <script>
+        userImage.onchange = evt => {
+            const [file1] = userImage.files
+            if (file1) {
+                profile_img.src = URL.createObjectURL(file1)
+            }
+        }
+
+        function triggerFileInput() {
+            document.getElementById('userImage').click()
+        }
+        
+        async function updateUser(userId) {
+            const formData = new FormData(); // Create a new FormData object
+
+            formData.append('fullName', document.getElementById('fullName').value); //formData.append('key', value);
+            formData.append('email', document.getElementById('email').value);
+            formData.append('phone', document.getElementById('phone').value);
+            formData.append('password', document.getElementById('password').value);
+            formData.append('rePassword', document.getElementById('rePassword').value);
+
+            const userImageInput = document.getElementById('userImage');
+            if (userImageInput.files.length > 0) {
+                formData.append('userImage', userImageInput.files[0], userImageInput.files[0].name);
+            }
+
+            try {
+                const response = await fetch(`/api/admin/userEdit/${userId}`, {
+                    method: 'PUT',
+                    body: formData,
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData);
+                }
+
+                const updatedUser = await response.json();
+                console.log('User updated successfully', updatedUser);
+                window.location.reload();
+                alert('Updated successfully..');
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+    </script>
+
+    <%- include("./partials/footer.ejs") -%>

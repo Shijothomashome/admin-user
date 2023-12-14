@@ -1,0 +1,19 @@
+<%- include('./partials/header.ejs') -%>
+
+    <!-- User login form -->
+    <section class="form-section">
+        <div class="form-container">
+            <form action="/api/user/login" method="post">
+                <h2>Login</h2>
+                <% if (locals.err) {%>
+                <h6><%= locals.err %></h6>
+                <% } %>
+                <input type="text" id="email" name="email" placeholder="Enter your email">
+                <input type="text" id="password" name="password" placeholder="Enter your password">
+                <p>New user? <a href="/api/user/signup">Signup</a></p>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </section>
+
+<%- include('./partials/footer.ejs') -%>

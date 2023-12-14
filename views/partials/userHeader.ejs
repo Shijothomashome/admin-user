@@ -1,0 +1,31 @@
+  
+  <!DOCTYPE html>
+  <html lang="en">
+  
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title><%= title %></title>
+      <script src="https://kit.fontawesome.com/a74266306a.js" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="/css/style.css">
+  </head>
+  
+  <body>
+  <!-- Header -->
+  <header>
+    <nav>
+        <div class="logo">
+            <a href="/">
+                <h1>LOGO</h1>
+            </a>
+          
+            <h2>Welcome <%= user.fullName %></h2>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="/api/user/editProfile/<%= user._id %>">Edit Profile</a></li>
+            <li><a href="/api/user/logout">Logout</a></li>
+            
+        </ul>
+    </nav>
+</header>

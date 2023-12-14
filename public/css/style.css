@@ -1,0 +1,393 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* Header section */
+header {
+    background-color: #fff;
+    color: #333;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+nav {
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo h1 {
+    border: 1px solid rgb(0, 123, 255);
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 10px;
+
+}
+
+.logo a {
+    text-decoration: none;
+    color: #333;
+}
+
+.logo {
+    width: 100px;
+    display: flex;
+    gap: 100px;
+}
+.logo h2{
+    white-space: nowrap;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+   
+}
+
+.nav-links li {
+    margin-right: 15px;
+}
+
+.nav-links a {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+    color: #343a40;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.dropdown-container {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown-container:hover .dropdown-content {
+    display: block;
+    width: 160px;
+    z-index: 1;
+}
+
+.dropdown-content li {
+    margin: 15px 0;
+    padding-left: 10px;
+}
+
+
+
+
+/* Custom box */
+.custom-box-section {
+    background-color: #f8f9fa;
+    padding: 50px 0;
+    text-align: center;
+}
+
+.custom-box {
+    max-width: 750px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.custom-box p {
+    font-style: italic;
+    color: #555;
+}
+
+
+/* Cards section */
+.cards-section {
+    background-color: #f8f9fa;
+    padding: 50px 0;
+    text-align: center;
+    margin-top: -30px;
+}
+
+.cards-container {
+    display: flex;
+    justify-content: space-around;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.card {
+    flex: 0 0 30%;
+    margin: 0 5px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.card p,h2{
+    font-style: italic;
+    color: #555;
+}
+
+.card-author {
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+/* Testimonials section */
+.testimonial-section {
+    background-color: #f8f9fa;
+    padding: 50px 0;
+    text-align: center;
+}
+
+.testimonial-container {
+    max-width: 800px;
+    margin: auto;
+}
+
+.testimonial {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.testimonial p {
+    font-style: italic;
+    color: #555;
+}
+
+.testimonial-author {
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+/* Footer */
+footer {
+    background-color: #fff;
+    color: #333;
+    padding: 5px 0;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.social-icons {
+    margin-top: 15px;
+}
+
+.social-icons a {
+    margin: 0 10px;
+    color: #007bff;
+    /* Update the color to a more visible one */
+    text-decoration: none;
+    font-size: 20px;
+}
+
+
+
+/* Form styles */
+
+.form-section{
+    margin-bottom: 100px;
+}
+
+.form-container{
+    background-color: #fff;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0px 2px 22px rgba(0, 0, 0, 0.3);
+    width: 40%;
+    margin: 0 auto;
+    /* Applying a particular width and setting margin 0 auto will align the form centered */
+
+
+}
+
+.form-container form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 150px 0;
+}
+
+.form-container form input {
+    outline: none;
+    border: 1px solid #ddd;
+    width: 80%;
+    height: 20px;
+    margin-top: 2rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    padding: 20px;
+}
+
+.form-container input:focus {
+    box-shadow: 5px 5px 12px rgb(0, 0, 0, 0.2);
+}
+
+.form-container h2 {
+    text-align: center;
+    margin-top: 30px;
+}
+
+button {
+    width: 200px;
+    height: 40px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    border: none;
+    background-color: rgba(5, 162, 234, 0.8);
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #fff;
+    font-weight: bo;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+button:hover {
+    background-color: rgba(9, 136, 195, 0.8);
+}
+
+.form-container p {
+    color: rgb(5, 89, 234);
+    margin-left: 65px;
+    margin-top: 13px;
+    text-align: start;
+    width: 100%;
+}
+
+.form-container p a {
+    text-decoration: none;
+    color: rgb(5, 89, 234);
+}
+
+
+.form-container form label {
+    margin-top: 10px;
+    place-self: self-start;
+    padding-left: 37px;
+    margin-bottom: -26px;
+    font-style: italic;
+    font-weight: 800;
+    color: rgb(23, 121, 226);
+}
+
+.form-container form input[type="file"] {
+    margin-top: 35px;
+}
+
+/* 1 */
+.profile-container{
+    background-color: #fff;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0px 2px 22px rgba(0, 0, 0, 0.3);
+    width: 40%;
+    margin: 140px auto;
+    padding: 25px;
+}
+.profile-pic a{
+    text-decoration: none;
+    font-size: small;
+}
+
+
+.table-section {
+    margin: 30px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table-container {
+    overflow-x: auto;
+    padding: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 5px;
+    text-align: center;
+}
+
+th {
+    padding: 25px;
+    background-color:  rgb(23, 121, 226);
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+.users-list a{
+    text-decoration: none;
+    padding: 4px 15px;
+    border-radius: 6px;
+}
+.users-list a:first-child{
+    color: white;
+    background-color: #4CAF50;
+}
+.users-list a:last-child{
+    color: white;
+    background-color: red;
+}
+
+.users-list img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+#editProfile img{
+width: 150px;
+height: 150px;
+border-radius: 10%;
+}
+
+input::-webkit-file-upload-button{
+    border: 1px solid red;
+}
+
+.change-dp{
+    position: relative;
+}
+.fa-camera{
+position: absolute;
+top: 110px;
+left: 60px;
+color: #171616;
+font-size: 2rem;
+cursor: pointer;
+
+}
+

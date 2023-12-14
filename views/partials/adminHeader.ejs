@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <script src="https://kit.fontawesome.com/a74266306a.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="/">
+                    <h1>LOGO</h1>
+                </a>
+
+                <h2>Welcome Admin <%= admin.Name %>
+                </h2>
+            </div>
+
+            <ul class="nav-links">
+                  
+
+               <li>
+                    <form id="searchForm">
+                        <input id="searchUser" type="text" placeholder=" Search user" name="email">
+                        <button type="button" onclick="searchUsers()"><i
+                                class="fa-solid fa-magnifying-glass"></i></button>
+                    </form>
+                </li>
+                <li><a href="/api/admin/users">Users</a></li>
+                <li><a href="/api/admin/logout">Logout</a></li>
+            </ul>
+        </nav>
+
+        <script>
+
+            function searchUsers() {
+                const searchKeyEmail = document.getElementById('searchUser').value;
+                console.log('hey')
+                if (searchKeyEmail=== null) {
+                    console.log('hi');
+                    window.location.href = `/api/admin/users`;
+                } else {
+                    console.log('hello');
+                    window.location.href = `/api/admin/searchUser?email=${searchKeyEmail}`;
+                }
+            }
+        </script>
+    </header>
+    
