@@ -23,17 +23,15 @@
                 <h2>Welcome Admin <%= admin.Name %>
                 </h2>
             </div>
-
+            <form id="searchForm">
+                <input id="searchUser" type="text" placeholder=" Search user" name="email">
+                <button class="searchUser-btn" type="button" onclick="searchUsers()"><i
+                        class="fa-solid fa-magnifying-glass"></i></button>
+            </form>
             <ul class="nav-links">
-                  
 
-               <li>
-                    <form id="searchForm">
-                        <input id="searchUser" type="text" placeholder=" Search user" name="email">
-                        <button type="button" onclick="searchUsers()"><i
-                                class="fa-solid fa-magnifying-glass"></i></button>
-                    </form>
-                </li>
+
+                
                 <li><a href="/api/admin/users">Users</a></li>
                 <li><a href="/api/admin/logout">Logout</a></li>
             </ul>
@@ -44,7 +42,7 @@
             function searchUsers() {
                 const searchKeyEmail = document.getElementById('searchUser').value;
                 console.log('hey')
-                if (searchKeyEmail=== null) {
+                if (searchKeyEmail === null) {
                     console.log('hi');
                     window.location.href = `/api/admin/users`;
                 } else {
@@ -52,6 +50,11 @@
                     window.location.href = `/api/admin/searchUser?email=${searchKeyEmail}`;
                 }
             }
+
+            // Handle form submission on Enter key press
+            document.getElementById('searchForm').addEventListener('submit', function (event) {
+                event.preventDefault(); // Prevent the default form submission
+                searchUsers(); // Manually call the search function
+            });
         </script>
     </header>
-    

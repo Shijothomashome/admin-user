@@ -390,4 +390,22 @@ font-size: 2rem;
 cursor: pointer;
 
 }
-
+#searchForm{
+    margin-left: 400px;
+}
+#searchForm input{
+    border: 1px solid #d4cccc;
+    height: 30px;
+    width: 236px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgb(0,0,0,0.4);
+}
+#searchForm input:focus{
+    outline: none;
+}
+.searchUser-btn{
+    color: #333;
+    background: white;
+    width: auto;
+    height: auto;
+}
