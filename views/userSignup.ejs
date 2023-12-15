@@ -3,7 +3,7 @@
     <!-- User signup form -->
     <section class="form-section">
         <div class="form-container">
-            <form action="/api/user/signup" method="post" enctype="multipart/form-data">
+            <form id="signupForm" action="/api/user/signup" method="post" enctype="multipart/form-data">
                 <h2>Signup</h2>
                 <input type="text" id="fullname" name="fullName" placeholder="Enter your fullname">
                 <input type="text" id="email" name="email" placeholder="Enter your email">
@@ -17,5 +17,24 @@
             </form>
         </div>
     </section>
+
+    <script>
+        $(document).ready(function (){
+            $('#signupForm').validate({
+                rules:{
+                    fullName:{
+                        required: true,
+                        minlength: 2
+                    },
+                    email:{
+                        required: true,
+                        email:true,
+                        
+                    }
+
+                }
+            })
+        })
+    </script>
 
 <%- include('./partials/footer.ejs') -%>

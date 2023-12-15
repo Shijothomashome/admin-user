@@ -375,7 +375,12 @@ border-radius: 10%;
 }
 
 input::-webkit-file-upload-button{
-    border: 1px solid red;
+    border: none;
+    background-color: rgba(9, 136, 195, 0.8);
+    border-radius: 5px;
+    color: #fff;
+    padding: 5px 10px;
+    cursor: pointer;
 }
 
 .change-dp{
