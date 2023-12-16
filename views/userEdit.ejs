@@ -1,7 +1,7 @@
 <%- include("./partials/adminHeader.ejs", {title: 'Edit user' , admin}) -%>
     <!-- Editform fromm admin panel -->
     <!-- User edit form -->
-    <section class="form-section">
+    <section class="form-section edit-form">
         <div class="form-container">
             <form id="editProfile">
                 <h2>Edit Profile of <%= user.fullName %>
@@ -25,7 +25,11 @@
             </form>
         </div>
     </section>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
     <script>
+         
+
         userImage.onchange = evt => {
             const [file1] = userImage.files
             if (file1) {
@@ -65,11 +69,63 @@
                 const updatedUser = await response.json();
                 console.log('User updated successfully', updatedUser);
                 window.location.reload();
-                alert('Updated successfully..');
+                // alert('Updated successfully..');
             } catch (err) {
                 console.error(err);
             }
         }
+
+
+        $(document).ready(function () {
+                $('#editProfile').validate({
+                    rules: {
+                        fullName: {
+                            required: true,
+                            minlength: 2
+                        },
+                        email: {
+                            required: true,
+                            email: true,
+                            customEmailValidation: true  // adding custom validation for email
+                        },
+                        phoneNumber: {
+                            required: true,
+                            number: true,
+                            minlength: 10,
+                            maxlength: 10,
+                        },
+                        password: {
+                            required: true,
+                            strongPasswordValidation: true
+                        },
+                        reEnterPassword: {
+                            required: true,
+                            equalTo: '#password'
+                        },
+                        userImage: {
+                            required: true,
+                            extension: 'jpg|jpeg|png|gif' // Allow specific image file extensions
+                        }
+                    },
+                    messages: {
+                        reEnterPassword: {
+                            equalTo: 'Passwords do not match'
+                        },
+                        userImage: {
+                            extension: 'Please upload a valid image file (jpg, jpeg, png, gif)'
+                        }
+                    },
+                });
+            });
+            $.validator.addMethod("customEmailValidation", function (value, element) {
+                return /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(value);
+            }, 'please enter a valid email address');
+
+            $.validator.addMethod("strongPasswordValidation", function (value, element) {
+                return this.optional(element) || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/.test(value);
+            }, "Password must be at least 6 characters long and include at least one lowercase letter, one uppercase letter, one digit, and one special character");
+        
+
 
     </script>
 

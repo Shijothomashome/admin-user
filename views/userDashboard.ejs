@@ -1,14 +1,17 @@
 
 <%- include("./partials/userHeader.ejs",{title:'User Dashboard',user}) -%>
 
-<section class="profile-container">
+<section class="align">
+    <section class="profile-container">
    
-    <div class="profile-info">
-     <p>Name : <span><%= user.fullName %></span></p>
-     <p>Email : <span><%= user.email %></span></p>
-     <p>Phone : <span><%= user.phoneNumber %></span></p>
-     <p>Password : <span><%= user.password %></span></p>
-    </div>
+        <div class="profile-info">
+         <p>Name : <span><%= user.fullName %></span></p>
+         <p>Email : <span><%= user.email %></span></p>
+         <p>Phone : <span><%= user.phoneNumber %></span></p>
+         <p>Password : <span><%= user.password %></span></p>
+        </div>
+    </section>
 </section>
+
 
 <%- include("./partials/footer.ejs") -%>

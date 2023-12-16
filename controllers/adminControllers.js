@@ -34,7 +34,7 @@ const postLogin = async (req, res) => {
             // console.log(req.session.admin);
             res.redirect('/api/admin/adminDashboard');
         } else {
-            res.send('Invalid Admin credentials');
+            res.render('adminLogin',{err: 'Invalid Admin credentials' });
         }
     } catch (err) {
         console.log(err);
