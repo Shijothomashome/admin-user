@@ -25,10 +25,8 @@
             </form>
         </div>
     </section>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <%- include('./partials/jquery.ejs') -%>
     <script>
-         
 
         userImage.onchange = evt => {
             const [file1] = userImage.files
@@ -48,7 +46,7 @@
             formData.append('email', document.getElementById('email').value);
             formData.append('phone', document.getElementById('phone').value);
             formData.append('password', document.getElementById('password').value);
-            formData.append('rePassword', document.getElementById('rePassword').value);
+            formData.append('reEnterPassword', document.getElementById('rePassword').value);
 
             const userImageInput = document.getElementById('userImage');
             if (userImageInput.files.length > 0) {
@@ -74,58 +72,6 @@
                 console.error(err);
             }
         }
-
-
-        $(document).ready(function () {
-                $('#editProfile').validate({
-                    rules: {
-                        fullName: {
-                            required: true,
-                            minlength: 2
-                        },
-                        email: {
-                            required: true,
-                            email: true,
-                            customEmailValidation: true  // adding custom validation for email
-                        },
-                        phoneNumber: {
-                            required: true,
-                            number: true,
-                            minlength: 10,
-                            maxlength: 10,
-                        },
-                        password: {
-                            required: true,
-                            strongPasswordValidation: true
-                        },
-                        reEnterPassword: {
-                            required: true,
-                            equalTo: '#password'
-                        },
-                        userImage: {
-                            required: true,
-                            extension: 'jpg|jpeg|png|gif' // Allow specific image file extensions
-                        }
-                    },
-                    messages: {
-                        reEnterPassword: {
-                            equalTo: 'Passwords do not match'
-                        },
-                        userImage: {
-                            extension: 'Please upload a valid image file (jpg, jpeg, png, gif)'
-                        }
-                    },
-                });
-            });
-            $.validator.addMethod("customEmailValidation", function (value, element) {
-                return /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(value);
-            }, 'please enter a valid email address');
-
-            $.validator.addMethod("strongPasswordValidation", function (value, element) {
-                return this.optional(element) || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/.test(value);
-            }, "Password must be at least 6 characters long and include at least one lowercase letter, one uppercase letter, one digit, and one special character");
-        
-
 
     </script>
 

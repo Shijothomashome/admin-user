@@ -285,6 +285,7 @@ button:hover {
     color: rgb(5, 89, 234);
 }
 
+
 label.error {
     color: red;
     place-self: flex-start;
@@ -314,7 +315,14 @@ label[for="userImage"] , .edit-form label{
     font-weight: 800;
     color: rgb(23, 121, 226);
 }
-
+.label-error{
+    color: red!important;
+    place-self: flex-start!important;
+    padding-left: 37px!important;
+    margin: 4px 0!important;
+    font-style: normal!important;
+    font-weight: 500!important;
+}
 .form-container form input[type="file"] {
     margin-top: 35px;
 }
@@ -446,4 +454,7 @@ input::-webkit-file-upload-button {
     background: white;
     width: auto;
     height: auto;
+}
+.d-none{
+    display: none;
 }

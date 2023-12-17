@@ -16,19 +16,19 @@
         </div>
     </section>
 
-
-<%- include('./partials/footer.ejs') -%>
-<script>
-    $(document).ready(function () {
-        $('#loginForm').validate({
-            rules: {
-                email: {
-                    required: true
-                },
-                password: {
-                    required: true
+    <%- include('./partials/jquery.ejs') -%>
+    <script>
+        $(document).ready(function () {
+            $('#loginForm').validate({
+                rules: {
+                    email: {
+                        required: true
+                    },
+                    password: {
+                        required: true
+                    }
                 }
-            }
+            })
         })
-    })
-</script>
+    </script>
+<%- include('./partials/footer.ejs') -%>
