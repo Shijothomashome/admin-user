@@ -1,33 +1,41 @@
 <%- include("./partials/adminHeader.ejs", {title: 'Edit user' , admin}) -%>
-    <!-- Editform fromm admin panel -->
+    <!-- Editform from admin panel -->
     <!-- User edit form -->
+    <main>
     <section class="form-section edit-form">
         <div class="form-container">
             <form id="editProfile">
                 <h2>Edit Profile of <%= user.fullName %>
                 </h2>
-                <div class="change-dp"><img id="profile_img" src="/uploads/<%= user.imageFileName %>" alt=""> <i
-                        class="fa-solid fa-camera" title="change picture" onclick="triggerFileInput()"></i><input
-                        type="file" id="userImage" name="userImage" accept="image/*" title="choose your profile image"
-                        style="display: none;">
-                </div>
-                <label for="fullName">Full Name</label>
-                <input type="text" id="fullName" name="fullName" value="<%= user.fullName %>">
-                <label for="email">Email</label>
-                <input type="text" id="email" name="email" value="<%= user.email %>">
-                <label for="phone">Phone</label>
-                <input type="tel" id="phone" name="phoneNumber" value="<%= user.phoneNumber %>">
-                <label for="password">Password</label>
-                <input type="text" id="password" name="password" value="<%= user.password %>">
-                <label for="rePassword">Re-enter Password</label>
-                <input type="text" id="rePassword" name="reEnterPassword" value="<%= user.reEnterPassword %>">
-                <button type="button" onclick="updateUser('<%= user._id %>')">Update</button>
-            </form>
+                <div class="change-dp"><img id="profile_img" src="/uploads/<%= user.imageFileName %>"> <i
+                    class="fa-solid fa-camera" title="change picture" onclick="triggerFileInput()"></i><input
+                    type="file" id="userImage" name="userImage" accept="image/*" title="choose your profile image"
+                    style="display: none;">
+                <label class="error label-error-img d-none">This field is required</label>
+            </div>
+            <label for="fullName">Full Name</label>
+            <input class="inputs" type="text" id="fullName" name="fullName" value="<%= user.fullName %>">
+            <label class="error label-error d-none">This field is required</label>
+            <label for="email">Email</label>
+            <input class="inputs" type="text" id="email" name="email" value="<%= user.email %>">
+            <label class="error label-error d-none">This field is required</label>
+            <label for="phone">Phone</label>
+            <input class="inputs" type="tel" id="phone" name="phoneNumber" value="<%= user.phoneNumber %>">
+            <label class="error label-error d-none">This field is required</label>
+            <label for="password">Password</label>
+            <input class="inputs passwords" type="text" id="password" name="password" value="<%= user.password %>">
+            <label class="error label-error d-none">This field is required</label>
+            <label for="rePassword">Re-enter Password</label>
+            <input class="inputs passwords" type="text" id="rePassword" name="reEnterPassword"
+                value="<%= user.reEnterPassword %>">
+            <label class="error label-error d-none passwordMatch">This field is required</label>
+            <button type="button" onclick="updateUser('<%= user._id %>')">Update</button>
+        </form>
         </div>
     </section>
-    <%- include('./partials/jquery.ejs') -%>
+    
     <script>
-
+        // for the preview of new photo after uploading 
         userImage.onchange = evt => {
             const [file1] = userImage.files
             if (file1) {
@@ -35,44 +43,106 @@
             }
         }
 
+        // triggers the input file when i click the upload icon
         function triggerFileInput() {
             document.getElementById('userImage').click()
         }
+
+        // dynamically removes error
+        const inputs = document.getElementsByClassName('inputs');
+        const errors = document.querySelectorAll('.label-error');
+
+        for (let i = 0; i < inputs.length; i++) {
+            inputs[i].addEventListener("input", () => {
+                if(inputs[i].value == ""){
+                    errors[i].classList.remove('d-none');
+                }else{
+                    errors[i].classList.add('d-none')
+                }
+            })
+        }
+
+        const password = document.getElementById('password');
+        const rePassword = document.getElementById('rePassword');
+        const passwordMatch = document.querySelector('.passwordMatch');
+        const passwords = document.getElementsByClassName('passwords')
+
+        for(let i=0;i<passwords.length; i++){
+            passwords[i].addEventListener("input", () => {
+            if (password.value == rePassword.value) {
+                passwordMatch.classList.add('d-none');
+            } 
+            else {
+                passwordMatch.textContent = "Password does not match";
+                passwordMatch.classList.remove('d-none');
+            }
+        })
         
+        }
+       
+
+
+
         async function updateUser(userId) {
-            const formData = new FormData(); // Create a new FormData object
-
-            formData.append('fullName', document.getElementById('fullName').value); //formData.append('key', value);
-            formData.append('email', document.getElementById('email').value);
-            formData.append('phone', document.getElementById('phone').value);
-            formData.append('password', document.getElementById('password').value);
-            formData.append('reEnterPassword', document.getElementById('rePassword').value);
-
-            const userImageInput = document.getElementById('userImage');
-            if (userImageInput.files.length > 0) {
-                formData.append('userImage', userImageInput.files[0], userImageInput.files[0].name);
+            const inputs = document.getElementsByClassName('inputs');
+            const errors = document.querySelectorAll('.label-error');
+            let required = true;
+            for (i = 0; i < inputs.length; i++) {
+                if (inputs[i].value == "") {
+                    errors[i].classList.remove('d-none');
+                    required = false;
+                } else {
+                    errors[i].classList.add('d-none');
+                }
+            }
+            const password = document.getElementById('password').value;
+            const rePassword = document.getElementById('rePassword').value;
+            const passwordMatch = document.querySelector('.passwordMatch');
+            let passwordEqual = true;
+            if (password !== rePassword) {
+                passwordMatch.textContent = "Password does not match";
+                passwordMatch.classList.remove('d-none');
+                passwordEqual = false;
             }
 
-            try {
-                const response = await fetch(`/api/admin/userEdit/${userId}`, {
-                    method: 'PUT',
-                    body: formData,
-                });
+            if (required && passwordEqual) {
+                const formData = new FormData(); // Create a new FormData object
 
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData);
+
+                formData.append('fullName', document.getElementById('fullName').value); //formData.append('key', value);
+                formData.append('email', document.getElementById('email').value);
+                formData.append('phoneNumber', document.getElementById('phone').value);
+                formData.append('password', document.getElementById('password').value);
+                formData.append('reEnterPassword', document.getElementById('rePassword').value);
+
+                const userImageInput = document.getElementById('userImage');
+                if (userImageInput.files.length > 0) {
+                    formData.append('userImage', userImageInput.files[0], userImageInput.files[0].name);
                 }
 
-                const updatedUser = await response.json();
-                console.log('User updated successfully', updatedUser);
-                window.location.reload();
-                // alert('Updated successfully..');
-            } catch (err) {
-                console.error(err);
+                try {
+                    const response = await fetch(`/api/user/editProfile/${userId}`, {
+                        method: 'PUT',
+                        body: formData,
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData);
+                    }
+
+                    const updatedUser = await response.json();
+                    console.log('User updated successfully', updatedUser);
+                    window.location.reload();
+                    alert('Updated successfully..');
+                } catch (err) {
+                    console.error(err);
+                }
             }
+
+
         }
 
     </script>
-
+</main>
     <%- include("./partials/footer.ejs") -%>

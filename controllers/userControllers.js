@@ -8,43 +8,53 @@ const getLogin = (req, res) => {
         res.render('userLogin');
     }
 }
+
 const getSignup = (req, res) => {
     res.render('userSignup');
 }
+
 const postLogin = async (req, res) => {
     try {
         req.session.user = await userCollection.findOne({ email: req.body.email, password: req.body.password });
         if (req.session.user) {
             res.redirect('/api/user/userDashboard')
         } else {
-            res.render('userLogin', { err: 'Enter valid credentials' })
+            res.render('userLogin', { alert: 'Enter valid credentials..!' })
         }
     } catch (err) {
         console.log(err);
     }
 }
+
 const postSignup = async (req, res) => {
     try {
         let imageFileName;
-        if(req.file){       // for storing image path
+        if (req.file) {       // for storing image 
             imageFileName = req.file.filename
-        }else{
-            console.log('No photo has been choosen for profile picture')
         }
         req.body.imageFileName = imageFileName;
-        const userData = await new userCollection(req.body).save();
-        res.send('new user added')
+        const existing = await userCollection.findOne({ email: req.body.email })
+        if (existing) {
+            res.render('userSignup', { alert: 'User with given email exists, choose a different one..!' })
+        } else {
+            const userData = await new userCollection(req.body).save();
+            res.render('userLogin', { alert: 'Account created! Login to continue..!', className: 'success-label' })
+        }
     }
     catch (err) {
         console.error(err);
     }
 }
+
 const getDashboard = (req, res) => {
     if (req.session.user) {
         const user = req.session.user;
         res.render('userDashboard', { title: 'User Dashboard', user })
+    } else {
+        res.render('userLogin', { alert: 'Session expired Login to continue..!', className: 'success-label' })
     }
 }
+
 const getLogout = (req, res) => {
     req.session.destroy((err) => {
         if (err) {
@@ -56,39 +66,41 @@ const getLogout = (req, res) => {
     })
 }
 
-const getEditProfile = async (req,res) => {
-    const userId =req.params.id;
-    const user =  await userCollection.findOne({_id:userId})
-    console.log(userId);  
-    res.render('editProfile',{title: 'user dashboard', user})
+const getEditProfile = async (req, res) => {
+    if (req.session.user) {
+        const userId = req.params.id;
+        const user = await userCollection.findOne({ _id: userId })
+        res.render('editProfile', { title: 'user dashboard', user })
+    } else {
+        res.render('userLogin', { alert: 'Session expired Login to continue..!', className: 'success-label' })
+    }
 }
 
-
-const putEditProfile = async(req,res) =>{
-    try{
+const putEditProfile = async (req, res) => {
+    try {
         const userId = req.params.id;
-        const updatedData = req.body; 
-        if(req.file){
+        const updatedData = req.body;
+        if (req.file) {
             updatedData.imageFileName = req.file.filename
         }
         const updatedUser = await userCollection.findByIdAndUpdate(userId, updatedData);
         // OR
         // const updatedUser = await userCollection.updateOne({_id:userId},{$set: updatedData})
         console.log(updatedUser);
-        
-        if(!updatedUser){
+
+        if (!updatedUser) {
             return res.status(404).json('User not found')
         }
         res.json(updatedUser);
-        }catch(error){
-            console.log(error);
-            res.status(500).json('Internal Server Error')
-        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).json('Internal Server Error')
     }
+}
 
 
 module.exports = {
-    
+
     getLogin,
     getSignup,
     postLogin,

@@ -1,10 +1,13 @@
 <%- include('./partials/header.ejs') -%>
-
+<main>
     <!-- User signup form -->
     <section class="form-section">
         <div class="form-container">
             <form id="signupForm" action="/api/user/signup" method="post" enctype="multipart/form-data">
                 <h2>Signup</h2>
+                <% if (locals.alert) {%>
+                    <label class="error <%= locals.className %>"> <%= locals.alert %></label>
+                    <% } %>
                 <input type="text" id="fullname" name="fullName" placeholder="Enter your fullname">
                 <input type="text" id="email" name="email" placeholder="Enter your email">
                 <input type="tel" id="phone" name="phoneNumber" placeholder="Enter your phone number">
@@ -18,56 +21,51 @@
         </div>
     </section>
     <%- include('./partials/jquery.ejs') -%>
-    <script>
-        $(document).ready(function () {
-            $('#signupForm').validate({
-                rules: {
-                    fullName: {
-                        required: true,
-                        minlength: 2
-                    },
-                    email: {
-                        required: true,
-                        email: true,
-                        customEmailValidation: true  // adding custom validation for email
-                    },
-                    phoneNumber: {
-                        required: true,
-                        number: true,
-                        minlength: 10,
-                        maxlength: 10,
-                    },
-                    password: {
-                        required: true,
-                        strongPasswordValidation: true
-                    },
-                    reEnterPassword: {
-                        required: true,
-                        equalTo: '#password'
-                    },
-                    userImage: {
-                        extension: 'jpg|jpeg|png|gif' // Allow specific image file extensions
-                    }
-                },
-                messages: {
-                    reEnterPassword: {
-                        equalTo: 'Passwords do not match'
-                    },
-                    userImage: {
-                        extension: 'Please upload a valid image file (jpg, jpeg, png, gif)'
-                    }
-                },
-            });
-        });
-        $.validator.addMethod("customEmailValidation", function (value, element) {
-            return /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(value);
-        }, 'please enter a valid email address');
+        <script>
+            $.validator.addMethod("customEmailValidation", function (value, element) {
+                return /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(value);
+            }, 'please enter a valid email address');
 
-        $.validator.addMethod("strongPasswordValidation", function (value, element) {
-            return this.optional(element) || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/.test(value);
-        }, "Password must be at least 6 characters long and include at least one lowercase letter, one uppercase letter, one digit, and one special character");
-    </script>
-    <%- include('./partials/footer.ejs') -%>
-   
-   
-     
+            $.validator.addMethod("strongPasswordValidation", function (value, element) {
+                return this.optional(element) || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/.test(value);
+            }, "Password must be at least 6 characters long and include at least one lowercase letter, one uppercase letter, one digit, and one special character");
+
+
+
+            $(document).ready(function () {
+                $('#signupForm').validate({
+                    rules: {
+                        fullName: {
+                            required: true,
+                            minlength: 2
+                        },
+                        email: {
+                            required: true,
+                            email: true,
+                            customEmailValidation: true  // adding custom validation for email
+                        },
+                        phoneNumber: {
+                            required: true,
+                            number: true,
+                            minlength: 10,
+                            maxlength: 10,
+                        },
+                        password: {
+                            required: true,
+                            strongPasswordValidation: true
+                        },
+                        reEnterPassword: {
+                            required: true,
+                            equalTo: '#password'
+                        }
+                    },
+                    messages: {
+                        reEnterPassword: {
+                            equalTo: 'Passwords do not match'
+                        }
+                    },
+                });
+            });
+        </script>
+</main>
+        <%- include('./partials/footer.ejs') -%>

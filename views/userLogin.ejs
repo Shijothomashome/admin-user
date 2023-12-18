@@ -1,12 +1,12 @@
 <%- include('./partials/header.ejs') -%>
-
+<main>
     <!-- User login form -->
     <section class="form-section">
         <div class="form-container">
             <form id="loginForm" action="/api/user/login" method="post">
                 <h2>Login</h2>
-                <% if (locals.err) {%>
-                <label class="error"> <%= locals.err %></label>
+                <% if (locals.alert) {%>
+                <label class="error <%= locals.className %>"> <%= locals.alert %></label>
                 <% } %>
                 <input type="text" id="email" name="email" placeholder="Enter your email">
                 <input type="password" id="password" name="password" placeholder="Enter your password">
@@ -31,4 +31,5 @@
             })
         })
     </script>
+    </main>
 <%- include('./partials/footer.ejs') -%>

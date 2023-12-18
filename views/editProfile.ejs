@@ -1,5 +1,5 @@
 <%- include("./partials/userHeader.ejs", {title: 'User Dashboard' , user}) -%>
-
+<main>
     <!-- User edit form -->
     <section class="form-section edit-form">
         <div class="form-container">
@@ -53,7 +53,7 @@
         for (let i = 0; i < inputs.length; i++) {
             inputs[i].addEventListener("input", () => {
                 if(inputs[i].value == ""){
-                    errors[i].classList.remove('d-none')
+                    errors[i].classList.remove('d-none');
                 }else{
                     errors[i].classList.add('d-none')
                 }
@@ -65,7 +65,7 @@
         const passwordMatch = document.querySelector('.passwordMatch');
         const passwords = document.getElementsByClassName('passwords')
 
-        for(let i=0;i<passwords.lenth; i++){
+        for(let i=0;i<passwords.length; i++){
             passwords[i].addEventListener("input", () => {
             if (password.value == rePassword.value) {
                 passwordMatch.classList.add('d-none');
@@ -109,7 +109,7 @@
 
                 formData.append('fullName', document.getElementById('fullName').value); //formData.append('key', value);
                 formData.append('email', document.getElementById('email').value);
-                formData.append('phone', document.getElementById('phone').value);
+                formData.append('phoneNumber', document.getElementById('phone').value);
                 formData.append('password', document.getElementById('password').value);
                 formData.append('reEnterPassword', document.getElementById('rePassword').value);
 
@@ -130,7 +130,6 @@
                     }
 
                     const updatedUser = await response.json();
-                    console.log('User updated successfully', updatedUser);
                     window.location.reload();
                     alert('Updated successfully..');
                 } catch (err) {
@@ -142,6 +141,5 @@
         }
 
     </script>
-
-
+</main>
     <%- include("./partials/footer.ejs") -%>

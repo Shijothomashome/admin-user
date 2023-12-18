@@ -1,10 +1,14 @@
 
 <%- include("./partials/userHeader.ejs",{title:'User Dashboard',user}) -%>
-
+<main>
 <section class="align">
     <section class="profile-container">
    
         <div class="profile-info">
+            <div class="pro-pic">
+                <h1>Profile Image</h1>
+                <img src="/uploads/<%= user.imageFileName %>" alt="">
+            </div>
          <p>Name : <span><%= user.fullName %></span></p>
          <p>Email : <span><%= user.email %></span></p>
          <p>Phone : <span><%= user.phoneNumber %></span></p>
@@ -12,6 +16,5 @@
         </div>
     </section>
 </section>
-
-
+</main>
 <%- include("./partials/footer.ejs") -%>

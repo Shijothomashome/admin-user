@@ -31,10 +31,9 @@ const postLogin = async (req, res) => {
     try {
         req.session.admin = await adminCollection.findOne({ email: req.body.email, password: req.body.password });
         if (req.session.admin) {
-            // console.log(req.session.admin);
             res.redirect('/api/admin/adminDashboard');
         } else {
-            res.render('adminLogin',{err: 'Invalid Admin credentials' });
+            res.render('adminLogin', { alert: 'Invalid Admin credentials' });
         }
     } catch (err) {
         console.log(err);
@@ -44,31 +43,38 @@ const postLogin = async (req, res) => {
 const getDashboard = (req, res) => {
 
     if (req.session.admin) {
-        // console.log(req.session.admin);
-
         const admin = req.session.admin
         res.render('adminDashboard', { title: 'Admin Dashboard', admin })
+    } else {
+        res.render('adminLogin', { alert: 'Session expired Login to continue..!', className: 'success-label' })
     }
 
 }
 
 const getUsers = async (req, res) => {
     try {
-        
-           const  users = await userCollection.find()
-      
-        const admin = req.session.admin;
-        res.render('usersList', { title: 'Admin Dashboard', admin, users })
+        if (req.session.admin) {
+            const users = await userCollection.find()
+            const admin = req.session.admin;
+            res.render('usersList', { title: 'Admin Dashboard', admin, users })
+        } else {
+            res.render('adminLogin', { alert: 'Session expired Login to continue..!', className: 'success-label' })
+        }
+
     } catch (err) {
         console.log(err);
     }
 }
 const getUserEdit = async (req, res) => {
     try {
-        const userId = req.params.id
-        const user = await userCollection.findOne({ _id: userId })
-        const admin = req.session.admin
-        res.render('userEdit', { title: 'Edit user', admin, user })
+        if (req.session.admin) {
+            const userId = req.params.id
+            const user = await userCollection.findOne({ _id: userId })
+            const admin = req.session.admin
+            res.render('userEdit', { title: 'Edit user', admin, user })
+        } else {
+            res.render('adminLogin', { alert: 'Session expired Login to continue..!', className: 'success-label' })
+        }
     } catch (err) {
         console.log(err);
     }
@@ -97,14 +103,16 @@ const putUserEdit = async (req, res) => {
 
 const deleteUserDelete = async (req, res) => {
     try {
-        const userId = req.params.id;
-        console.log(userId);
-
-        const deletedUser = await userCollection.findByIdAndDelete(userId); //returns the userID
-        if (!deletedUser) {
-            return res.status(404).json('User not found')
+        if (req.session.admin) {
+            const userId = req.params.id;
+            const deletedUser = await userCollection.findByIdAndDelete(userId); //returns the userID
+            if (!deletedUser) {
+                return res.status(404).json('User not found')
+            }
+            res.json(deletedUser);
+        } else {
+            res.render('adminLogin', { alert: 'Session expired Login to continue..!', className: 'success-label' })
         }
-        res.json(deletedUser);
     } catch (err) {
         console.log(err)
     }
@@ -120,22 +128,22 @@ const getLogout = (req, res) => {
     })
 }
 
-const getSearchUser = async(req,res) =>{
-    try{
-        const searchByEmail = req.query.email;
-       
-        const user = await userCollection.find({email: searchByEmail});
-        
-        // req.session.search = user
-        // req.session.search = user;
-        // res.redirect('/api/admin/users')
-        console.log(user);
-        const admin = req.session.admin;
-        res.render('usersList', { title: 'Admin Dashboard', admin, users:user})
-    }catch(err){
+const getSearchUser = async (req, res) => {
+    try {
+        if (req.session.admin) {
+            const searchByEmail = req.query.email;
+            const user = await userCollection.find({ email: searchByEmail });
+            const admin = req.session.admin;
+            res.render('usersList', { title: 'Admin Dashboard', admin, users: user })
+        } else {
+            res.render('adminLogin', { alert: 'Session expired Login to continue..!', className: 'success-label' })
+        }
+
+    } catch (err) {
         console.log(err);
     }
 }
+
 
 module.exports = {
     setAdmin,

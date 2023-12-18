@@ -1,33 +1,38 @@
 <%- include("./partials/header.ejs") -%>
+    <main>
+        <!-- Admin login -->
+        <section class="form-section">
+            <div class="form-container">
+                <form id="loginForm" action="/api/admin/login" method="post">
+                    <h2>Admin Login</h2>
+                    <% if (locals.alert) {%>
+                        <label class="error <%= locals.className %>">
+                            <%= locals.alert %>
+                        </label>
+                        <% } %>
+                            <input type="text" id="email" name="email" placeholder="Enter your email">
+                            <input type="password" id="password" name="password" placeholder="Enter your password">
+                            <p>Forgot Password? <a href="#">Click Here</a></p>
+                            <button type="submit">Submit</button>
+                </form>
+            </div>
+        </section>
 
-    <!-- Admin login -->
-    <section class="form-section">
-        <div class="form-container">
-            <form id="loginForm" action="/api/admin/login" method="post">
-                <h2>Admin Login</h2>
-                <% if (locals.err) { %>
-                <label class="error"> <%= locals.err %></label>
-                <% } %>
-                <input type="text" id="email" name="email" placeholder="Enter your email">
-                <input type="password" id="password" name="password" placeholder="Enter your password">
-                <p>Forgot Password? <a href="#">Click Here</a></p>
-                <button type="submit">Submit</button>
-            </form>
-        </div>
-    </section>
+        <%- include("./partials/jquery.ejs") -%>
+            <script>
+                $(document).ready(function () {
+                    $('#loginForm').validate({
+                        rules: {
+                            email: {
+                                required: true
+                            },
+                            password: {
+                                required: true
+                            }
+                        }
+                    })
+                })
+            </script>
+    </main>
 
     <%- include("./partials/footer.ejs") -%>
-        <script>
-            $(document).ready(function () {
-                $('#loginForm').validate({
-                    rules: {
-                        email: {
-                            required: true
-                        },
-                        password: {
-                            required: true
-                        }
-                    }
-                })
-            })
-        </script>
