@@ -6,12 +6,12 @@ body {
 }
 
 main {
-    background: radial-gradient(circle, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
+    background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(148, 187, 233, 1) 100%);
 }
 
 /* Header section */
 header {
-    background: radial-gradient(circle, rgba(255, 255, 255, 1) 33%, rgba(0, 123, 255, 1) 300%);
+    background: radial-gradient(circle, rgba(255, 255, 255, 1) -33%, rgba(0, 0, 255, 1) 469%);
     color: #000;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
     position: relative;
@@ -46,7 +46,8 @@ nav {
     gap: 100px;
     margin: 12px 0;
 }
-.logo-dashboard{
+
+.logo-dashboard {
     width: 100px;
 }
 
@@ -119,12 +120,13 @@ nav {
 }
 
 .custom-box {
+    background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(148, 187, 233, 1) 100%);
     max-width: 750px;
     margin: 40px auto;
     padding: 20px;
     background-color: #fff;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0px 0px 16px 0px rgba(0, 0, 74, 0.4), -7px 12px 9px 0px rgba(0, 0, 74, 0.4);
     text-align: center;
 }
 
@@ -150,18 +152,20 @@ nav {
 }
 
 .card {
+    background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(148, 187, 233, 1) 100%);
     flex: 0 0 30%;
     margin: 0 5px;
     margin-bottom: 30px;
     padding: 20px;
     background-color: #fff;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0px 0px 16px 0px rgba(0, 0, 74, 0.4), -7px 12px 9px 0px rgba(0, 0, 74, 0.2);
     text-align: left;
 }
 
 .card p,
-h2 {
+h2,
+footer p {
     font-style: italic;
     color: #000;
 }
@@ -188,7 +192,8 @@ h2 {
     padding: 20px;
     background-color: #fff;
     border-radius: 5px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(148, 187, 233, 1) 100%);
+    box-shadow: inset 0px 0px 16px 0px rgba(0, 0, 74, 0.4), -7px 12px 9px 0px rgba(0, 0, 74, 0.4);
 }
 
 .testimonial p {
@@ -227,7 +232,8 @@ footer {
 /* Form styles */
 
 .form-section {
-padding: 1px;}
+    padding: 1px;
+}
 
 .form-container {
     background-color: #fff;
@@ -441,7 +447,8 @@ tr:nth-child(even) {
     height: 150px;
     border-radius: 5%;
 }
-.pro-pic img{
+
+.pro-pic img {
     width: 150px;
     height: 150px;
     border-radius: 5%;

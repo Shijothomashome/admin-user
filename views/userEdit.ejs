@@ -62,15 +62,15 @@
             })
         }
 
+        // for checking password is equal or not instantaneously
         const password = document.getElementById('password');
         const rePassword = document.getElementById('rePassword');
         const passwordMatch = document.querySelector('.passwordMatch');
         const passwords = document.getElementsByClassName('passwords')
-
         for(let i=0;i<passwords.length; i++){
             passwords[i].addEventListener("input", () => {
             if (password.value == rePassword.value) {
-                passwordMatch.classList.add('d-none');
+                passwordMatch.classList.add('d-none');                
             } 
             else {
                 passwordMatch.textContent = "Password does not match";
@@ -80,10 +80,8 @@
         
         }
        
-
-
-
         async function updateUser(userId) {
+            console.log(ji);
             const inputs = document.getElementsByClassName('inputs');
             const errors = document.querySelectorAll('.label-error');
             let required = true;
