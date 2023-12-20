@@ -20,10 +20,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Set your password'],
     },
-    reEnterPassword: {
-        type: String,
-        required: [true, 'Re-enter your password'],
-    },
     imageFileName: {
         type: String
     }

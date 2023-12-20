@@ -9,7 +9,6 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone Number</th>
-                    <th>Password</th>
                     <th>Profile photo</th>
                     <th>Actions</th>
                 </tr>
@@ -24,9 +23,6 @@
                         </td>
                         <td>
                             <%= user.phoneNumber %>
-                        </td>
-                        <td>
-                            <%= user.password %>
                         </td>
                         <td><img src="/uploads/<%= user.imageFileName %>" alt=""></td>
                         <td><a href="/api/admin/userEdit/<%= user._id %>">Edit</a> <a href="/api/admin/users"

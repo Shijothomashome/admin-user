@@ -20,13 +20,6 @@
                 <label for="phone">Phone</label>
                 <input class="inputs" type="tel" id="phone" name="phoneNumber" value="<%= user.phoneNumber %>">
                 <label class="error label-error d-none">This field is required</label>
-                <label for="password">Password</label>
-                <input class="inputs passwords" type="text" id="password" name="password" value="<%= user.password %>">
-                <label class="error label-error d-none">This field is required</label>
-                <label for="rePassword">Re-enter Password</label>
-                <input class="inputs passwords" type="text" id="rePassword" name="reEnterPassword"
-                    value="<%= user.reEnterPassword %>">
-                <label class="error label-error d-none passwordMatch">This field is required</label>
                 <button type="button" onclick="updateUser('<%= user._id %>')">Update</button>
             </form>
         </div>
@@ -60,23 +53,7 @@
             })
         }
 
-        const password = document.getElementById('password');
-        const rePassword = document.getElementById('rePassword');
-        const passwordMatch = document.querySelector('.passwordMatch');
-        const passwords = document.getElementsByClassName('passwords')
-
-        for(let i=0;i<passwords.length; i++){
-            passwords[i].addEventListener("input", () => {
-            if (password.value == rePassword.value) {
-                passwordMatch.classList.add('d-none');
-            } 
-            else {
-                passwordMatch.textContent = "Password does not match";
-                passwordMatch.classList.remove('d-none');
-            }
-        })
-        
-        }
+       
        
 
 
@@ -93,26 +70,14 @@
                     errors[i].classList.add('d-none');
                 }
             }
-            const password = document.getElementById('password').value;
-            const rePassword = document.getElementById('rePassword').value;
-            const passwordMatch = document.querySelector('.passwordMatch');
-            let passwordEqual = true;
-            if (password !== rePassword) {
-                passwordMatch.textContent = "Password does not match";
-                passwordMatch.classList.remove('d-none');
-                passwordEqual = false;
-            }
-
-            if (required && passwordEqual) {
+            
+            if (required ) {
                 const formData = new FormData(); // Create a new FormData object
 
 
                 formData.append('fullName', document.getElementById('fullName').value); //formData.append('key', value);
                 formData.append('email', document.getElementById('email').value);
                 formData.append('phoneNumber', document.getElementById('phone').value);
-                formData.append('password', document.getElementById('password').value);
-                formData.append('reEnterPassword', document.getElementById('rePassword').value);
-
                 const userImageInput = document.getElementById('userImage');
                 if (userImageInput.files.length > 0) {
                     formData.append('userImage', userImageInput.files[0], userImageInput.files[0].name);

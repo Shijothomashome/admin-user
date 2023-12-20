@@ -8,7 +8,7 @@
                 <% if (locals.alert) {%>
                 <label class="error <%= locals.className %>"> <%= locals.alert %></label>
                 <% } %>
-                <input type="text" id="email" name="email" placeholder="Enter your email">
+                <input type="email" id="email" name="email" placeholder="Enter your email">
                 <input type="password" id="password" name="password" placeholder="Enter your password">
                 <p>New user? <a href="/api/user/signup">Signup</a></p>
                 <button type="submit">Submit</button>

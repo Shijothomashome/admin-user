@@ -1,4 +1,5 @@
 const userCollection = require('../models/userCollection.js');
+const bcrypt = require('bcrypt');
 
 
 const getLogin = (req, res) => {
@@ -15,11 +16,16 @@ const getSignup = (req, res) => {
 
 const postLogin = async (req, res) => {
     try {
-        req.session.user = await userCollection.findOne({ email: req.body.email, password: req.body.password });
+        req.session.user = await userCollection.findOne({ email: req.body.email});
         if (req.session.user) {
-            res.redirect('/api/user/userDashboard')
+            const passwordMatch = await bcrypt.compare(req.body.password, req.session.user.password);
+            if(passwordMatch){
+                res.redirect('/api/user/userDashboard')
+            }else{
+                res.render('userLogin', { alert: 'Incorrect password' })
+            }
         } else {
-            res.render('userLogin', { alert: 'Enter valid credentials..!' })
+            res.render('userLogin', { alert: 'User not found' })
         }
     } catch (err) {
         console.log(err);
@@ -37,6 +43,9 @@ const postSignup = async (req, res) => {
         if (existing) {
             res.render('userSignup', { alert: 'User with given email exists, choose a different one..!' })
         } else {
+            const hashedPassword = await bcrypt.hash(req.body.password, 10);
+            req.body.password = hashedPassword;
+            delete req.body.reEnterPassword;
             const userData = await new userCollection(req.body).save();
             res.render('userLogin', { alert: 'Account created! Login to continue..!', className: 'success-label' })
         }
