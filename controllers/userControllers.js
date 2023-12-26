@@ -20,7 +20,8 @@ const postLogin = async (req, res) => {
         if (req.session.user) {
             const passwordMatch = await bcrypt.compare(req.body.password, req.session.user.password);
             if(passwordMatch){
-                res.redirect('/api/user/userDashboard')
+               const {_id} =  req.session.user
+                res.redirect(`/api/user/userDashboard/${_id}`)
             }else{
                 res.render('userLogin', { alert: 'Incorrect password' })
             }
@@ -55,9 +56,10 @@ const postSignup = async (req, res) => {
     }
 }
 
-const getDashboard = (req, res) => {
+const getDashboard = async (req, res) => {
     if (req.session.user) {
-        const user = req.session.user;
+        const userId = req.params.id;
+        const user = await userCollection.findOne({_id: userId})
         res.render('userDashboard', { title: 'User Dashboard', user })
     } else {
         res.render('userLogin', { alert: 'Session expired Login to continue..!', className: 'success-label' })
