@@ -14,9 +14,9 @@ const getIndex = (req, res) => {
 
 const getAbout = (req ,res) =>{
     if (req.session.user) {
-        res.redirect('/api/user/userDashboard')
+        res.redirect('/api/user/userDashboard');
     } else if(req.session.admin){
-        res.redirect('/api/admin/adminDashboard')
+        res.redirect('/api/admin/adminDashboard');
     } else {
         res.render('about');
     }
@@ -30,7 +30,6 @@ const getContactUs = (req ,res) =>{
         res.render('contactUs');
     }
 }
-
 
 module.exports={
     getIndex,
