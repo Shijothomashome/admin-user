@@ -18,7 +18,7 @@ const setAdmin = async (req, res) => {
         await new adminCollection(data).save();
         res.send('Admin set Successfully...')
     } else {
-        res.send("You don't have the access to this page...")
+         res.send("You don't have the access to this page...")
     }
 
 }
@@ -54,17 +54,20 @@ const getDashboard = (req, res) => {
 const getUsers = async (req, res) => {
     try {
         if (req.session.admin) {
+            if(req.query.email){
+                return res.redirect(`/api/admin/searchUser?email=${req.query.email}`) // if return is not here, then remaining code will execute, so to avoid this error we need to use either 'return' or 'if else'
+            }
             const users = await userCollection.find()
             const admin = req.session.admin;
             res.render('usersList', { title: 'Admin Dashboard', admin, users })
         } else {
             res.render('adminLogin', { alert: 'Session expired Login to continue..!', className: 'success-label' })
         }
-
     } catch (err) {
         console.log(err);
     }
 }
+
 const getUserEdit = async (req, res) => {
     try {
         if (req.session.admin) {

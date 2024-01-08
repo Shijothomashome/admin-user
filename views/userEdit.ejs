@@ -54,7 +54,6 @@
                 }
             })
         }
-
         
         async function updateUser(userId) {
             const inputs = document.getElementsByClassName('inputs');
@@ -67,13 +66,10 @@
                 } else {
                     errors[i].classList.add('d-none');
                 }
-            }
-           
+            }           
 
             if (required ) {
                 const formData = new FormData(); // Create a new FormData object
-
-
                 formData.append('fullName', document.getElementById('fullName').value); //formData.append('key', value);
                 formData.append('email', document.getElementById('email').value);
                 formData.append('phoneNumber', document.getElementById('phone').value);
@@ -82,18 +78,15 @@
                 if (userImageInput.files.length > 0) {
                     formData.append('userImage', userImageInput.files[0], userImageInput.files[0].name);
                 }
-
                 try {
                     const response = await fetch(`/api/user/editProfile/${userId}`, {
                         method: 'PUT',
                         body: formData,
                     });
-
                     if (!response.ok) {
                         const errorData = await response.json();
                         throw new Error(errorData);
                     }
-
                     const updatedUser = await response.json();
                     console.log('User updated successfully', updatedUser);
                     window.location.reload();
@@ -102,10 +95,7 @@
                     console.error(err);
                 }
             }
-
-
         }
-
     </script>
 </main>
     <%- include("./partials/footer.ejs") -%>

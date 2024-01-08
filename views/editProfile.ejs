@@ -85,7 +85,7 @@
 
                 try {
                     const response = await fetch(`/api/user/editProfile/${userId}`, {
-                        method: 'PUT',
+                        method: 'PATCH',
                         body: formData,
                     });
 

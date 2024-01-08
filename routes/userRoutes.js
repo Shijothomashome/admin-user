@@ -10,5 +10,5 @@ router.post('/signup',upload.single('userImage'), userControllers.postSignup);
 router.get('/userDashboard/:id', userControllers.getDashboard);
 router.get('/logout',userControllers.getLogout);
 router.get('/editProfile/:id',userControllers.getEditProfile);
-router.put('/editProfile/:id',upload.single('userImage'),userControllers.putEditProfile);
+router.patch('/editProfile/:id',upload.single('userImage'),userControllers.putEditProfile);
 module.exports = router;
